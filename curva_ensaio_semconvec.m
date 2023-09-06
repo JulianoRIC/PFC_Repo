@@ -18,11 +18,11 @@ figWidth = monWidth/3;
 %% Extracao dos dados experimentais
 
 nCol = 4; % numero colunas
-nSam = 324; % numero de amostras 
+nSam = 152945; % numero de amostras 
 
-fName = '';
+fName = '20230829_173404_heater___b_semconvec.txt';
 fileID = fopen(fName,'r');
-formatSpec = repmat('%f ',1,nCol);
+formatSpec = repmat('%f',1,nCol);
 A = fscanf(fileID,formatSpec,[nCol nSam]);
 A = A';
 
@@ -32,17 +32,13 @@ vecT4   = A(:,2); %temperatura CH4
 vecT9   = A(:,3); %temperatura CH9
 vecPWM  = A(:,4); %duty cycle PWM
 
-for i=1:length(vecTot) 
-    vecIter(i) = i; 
-end
-
 
 %% Graficos dos dados experimentais
 
 figure
 set(gcf,'OuterPosition',[0 figHeight figWidth figHeight]);
 set(gcf,'name','Temperaturas')
-plot(vecTime,vecTot/1e6)
+
 grid on
 hold on
 plot(vecIter,vecT4)
@@ -54,4 +50,5 @@ ylabel('Temp','interpreter','latex')
 
 lh = legend('temp CH4','temp CH9','PWM');
 set(lh,'interpreter','latex');
+
 
