@@ -46,7 +46,7 @@ hold on
 first =  find(vecT4>0, 1);
 plot(vecIter(first:end),vecT4(first:end))
 plot(vecIter(first:end),vecT9(first:end))
-plot(vecIter(first:end),vecPWM(first:end))
+%plot(vecIter(first:end),vecPWM(first:end))
 
 xlabel('iteration')
 ylabel('Temperaturas')
@@ -99,36 +99,36 @@ end
 %2a coluna: os valores de entrada
 %3a coluna: os valores da saída
 
-u = ScopeData2(3006:5005,2);
-uN = u - 2.5;
-
-y = ScopeData2(3006:5005,3);
-yN = y - 2.5903;
+% u = ScopeData2(3006:5005,2);
+% uN = u - 2.5;
+% 
+% y = ScopeData2(3006:5005,3);
+% yN = y - 2.5903;
 
 %nao normalizado (começa do ponto de operacao 2.5V)
-figure
-u = u(600:end) %para começar mais tarde e deixar menos pontos no '2.5'
-y = y(600:end)
-plot(u)
-hold on
-plot(y)
-axis([0 1150 2.45 3.5])
-xlabel('tempo de simulacao [s]')
-ylabel('tensão [V]')
-legend('Entrada de Controle', 'Saida Medida')
+% figure
+% u = u(600:end) %para começar mais tarde e deixar menos pontos no '2.5'
+% y = y(600:end)
+% plot(u)
+% hold on
+% plot(y)
+% axis([0 1150 2.45 3.5])
+% xlabel('tempo de simulacao [s]')
+% ylabel('tensão [V]')
+% legend('Entrada de Controle', 'Saida Medida')
 
 
 %normalizado --> ponto de operação deslocado para a origem
-figure
-uN = uN(600:end)
-yN = yN(600:end)
-plot(uN)
-hold on
-plot(yN)
-axis([0 1150 -0.1 0.9])
-xlabel('tempo de simulacao [s]')
-ylabel('tensão [V]')
-legend('Entrada de Controle Normalizada', 'Saida Medida Normalizada')
+% figure
+% uN = uN(600:end)
+% yN = yN(600:end)
+% plot(uN)
+% hold on
+% plot(yN)
+% axis([0 1150 -0.1 0.9])
+% xlabel('tempo de simulacao [s]')
+% ylabel('tensão [V]')
+% legend('Entrada de Controle Normalizada', 'Saida Medida Normalizada')
 
 
 
