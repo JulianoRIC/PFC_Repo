@@ -14,12 +14,11 @@ C1 = pidtune(H,'PI');  C1= tf(C1);
 C2 = pidtune(H,'PID'); C2= tf(C2);
 
 %1o ajuste feito pelo tuning pid do Control system designer
-pi = tf([39.6 0.04516], [1 0]);   %Kp = 39.6, Ti = 877 seg ou 14,6168 min  tf(39.6 0.04516], [1 0])
+pi = tf([39.6 0.04516], [1 0]);   %Kp = 39.6, Ti = 877  tf(39.6 0.04516], [1 0])
 pi_cd = tf(pi);
 
 %2º ajuste de controlador
-pif = tf(pi_fast);   %Kp = 39.1, Ki = 0.06366   tf([39.15 0.06366], [1 0]).
-                     %Ki = Kp/Ti --> Ti = Kp/Ki = 613.8148
+pi_f = 
 
 
 %% Resposta em malha fechada 
@@ -46,13 +45,13 @@ hold on
 p1 = plot(out.pv_C2.Time/60, out.pv_C2.Data, '-y');
 hold on
 p2 = plot(out.pv_picd.Time/60, out.pv_picd.Data, 'b');
-hold on
-p3 = plot(out.pv_pif.Time/60, out.pv_pif.Data, '-k');
+%hold on
+%p3 = plot(out.pv_pidcd.Time, out.pv_pidcd.Data, '-k');
 grid on
 xlabel('Tempo [min]')
 ylabel('Temperatura [ºC]')
 axis([0 1.6e03 25 48]);
-legend([deg, p0,p1,p2, p3],'SP', 'PV C1','PV C2', 'PI ajuste 1', 'PI ajuste 2');
+legend([deg, p0,p1,p2],'SP', 'PV C1','PV C2', 'PI ajuste');
 
 figure
 set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
@@ -62,13 +61,12 @@ hold on
 p1 = plot(out.mv_C2.Time/60, out.mv_C2.Data, '-y');
 hold on
 p2 = plot(out.mv_picd.Time/60, out.mv_picd.Data, 'b');
-hold on
-p3 = plot(out.mv_pif.Time/60, out.mv_pif.Data, 'k');
+%hold on
 grid on
 xlabel('Tempo [min]')
 ylabel('Duty cycle [%]')
 axis([0 1.6e03 0 100]);
-legend([p0,p1,p2,p3],'MV C1','MV C2', 'MV PI ajuste1', 'MV PI ajuste2');
+legend([p0,p1,p2],'MV C1','MV C2', 'MV PI ajuste');
 
 
 
@@ -83,7 +81,7 @@ P = Ke/(1+s*tau);
 [num_P,den_P] = tfdata(P);
 
 %controlador
-C = pif;
+C = pi_cd;
 
 
 %funcao de transferencia de malha fechada de Y/R
