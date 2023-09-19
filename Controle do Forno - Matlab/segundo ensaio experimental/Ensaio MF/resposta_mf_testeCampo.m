@@ -18,7 +18,7 @@ figWidth = monWidth/3;
 %% Extracao dos dados experimentais
 
 nCol = 4; % numero colunas
-nSam = 254938; % numero de amostras 
+nSam = 18824; % numero de amostras 
 
 fName = '20230918_110145_mf_ensaioForno__b.txt';
 fileID = fopen(fName,'r');
