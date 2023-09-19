@@ -18,7 +18,7 @@ pi = tf([39.6 0.04516], [1 0]);   %Kp = 39.6, Ti = 877 seg ou 14,6168 min  tf(39
 pi_cd = tf(pi);
 
 %2º ajuste de controlador
-pif = tf(pi_fast);   %Kp = 39.1, Ki = 0.06366   tf([39.15 0.06366], [1 0]).
+pif = tf([39.15 0.06366], [1 0]);   %Kp = 39.1, Ki = 0.06366   tf([39.15 0.06366], [1 0]).
                      %Ki = Kp/Ti --> Ti = Kp/Ki = 613.8148
 
 
