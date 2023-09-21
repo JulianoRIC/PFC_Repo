@@ -18,9 +18,13 @@ figWidth = monWidth/3;
 %% Extracao dos dados experimentais
 
 nCol = 4; % numero colunas
-nSam = 18824; % numero de amostras 
 
-fName = '20230918_110145_mf_ensaioForno__b.txt';
+nSam = 18824; %numero de amostras 1o teste:fora da sala
+%nSam = 18897 ; %numero de amostras 2o teste: dentro da sala
+
+fName = '20230918_110145_mf_ensaioForno__b.txt'; %1o teste
+%fName = '20230919_134331_mf_ensaioForno__b.txt';  %2o teste: dentro da sala
+
 fileID = fopen(fName,'r');
 formatSpec = repmat('%f',1,nCol);
 A = fscanf(fileID,formatSpec,[nCol nSam]);
@@ -28,12 +32,9 @@ A = A';
 
 %% Vetores das colunas
 vecIter = A(:,1); %time
-vecT4   = A(:,2); %temperatura CH4
-vecT9   = A(:,3); %temperatura CH9
-vecPWM  = A(:,4); %duty cycle PWM
-
-%media temperaturas
-vecTM = (vecT4 + vecT9)/2;
+vecPV   = A(:,2); %temperatura de saída PV
+vecSP   = A(:,3); %temperatura de SP
+vecMV   = A(:,4); %duty cycle PWM 
 
 minutos = [];
 
@@ -50,18 +51,16 @@ grid on
 hold on
 
 subplot(2,1,1)
-plot(minutos,vecT4)
+plot(minutos,vecPV)
 hold on
-plot(minutos,vecT9)
-hold on
-plot(minutos,vecTM)
+plot(minutos,vecSP)
 hold off
 axis([0 minutos(end) 22 58])
-legend('CH4','CH9','TM');
+legend('PV','SP');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
 subplot(2,1,2)
-plot(minutos,vecPWM)
+plot(minutos,vecMV)
 axis([0 minutos(end) 0 100])
 xlabel('tempo [min]')
 ylabel('Duty Cycle PWM [%]')

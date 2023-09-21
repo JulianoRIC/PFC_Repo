@@ -47,7 +47,7 @@ p1 = plot(out.pv_C2.Time/60, out.pv_C2.Data, '-y');
 hold on
 p2 = plot(out.pv_picd.Time/60, out.pv_picd.Data, 'b');
 hold on
-p3 = plot(out.pv_pif.Time/60, out.pv_pif.Data, '-k');
+ p3 = plot(out.pv_pif.Time/60, out.pv_pif.Data, '-k');
 grid on
 xlabel('Tempo [min]')
 ylabel('Temperatura [ºC]')
@@ -63,7 +63,7 @@ p1 = plot(out.mv_C2.Time/60, out.mv_C2.Data, '-y');
 hold on
 p2 = plot(out.mv_picd.Time/60, out.mv_picd.Data, 'b');
 hold on
-p3 = plot(out.mv_pif.Time/60, out.mv_pif.Data, 'k');
+ p3 = plot(out.mv_pif.Time/60, out.mv_pif.Data, 'k');
 grid on
 xlabel('Tempo [min]')
 ylabel('Duty cycle [%]')
