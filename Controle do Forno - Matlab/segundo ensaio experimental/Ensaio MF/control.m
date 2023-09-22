@@ -41,36 +41,35 @@ set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
 set(gcf,'name','Resposta MF')
 deg =  plot(out.setpoint.time/60, out.setpoint.data, 'g');
 hold on
-p0 = plot(out.pv_C1.time/60, out.pv_C1.data, 'r');
-hold on
-p1 = plot(out.pv_C2.Time/60, out.pv_C2.Data, '-y');
-hold on
-p2 = plot(out.pv_picd.Time/60, out.pv_picd.Data, 'b');
-hold on
+% p0 = plot(out.pv_C1.time/60, out.pv_C1.data, 'r');
+% hold on
+% p1 = plot(out.pv_C2.Time/60, out.pv_C2.Data, '-y');
+% hold on
+% p2 = plot(out.pv_picd.Time/60, out.pv_picd.Data, 'b');
+% hold on
  p3 = plot(out.pv_pif.Time/60, out.pv_pif.Data, '-k');
 grid on
 xlabel('Tempo [min]')
 ylabel('Temperatura [ºC]')
-axis([0 1.6e03 25 48]);
-legend([deg, p0,p1,p2, p3],'SP', 'PV C1','PV C2', 'PI ajuste 1', 'PI ajuste 2');
+axis([0 300 25 55]);
+%legend([deg, p0,p1,p2, p3],'SP', 'PV C1','PV C2', 'PI ajuste 1', 'PI ajuste 2');
+legend('SP','PV')
 
 figure
 set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
 set(gcf,'name','Resposta MF - Sinal de controle')
-p0 = plot(out.mv_C1.time/60, out.mv_C1.data, 'r');
-hold on
-p1 = plot(out.mv_C2.Time/60, out.mv_C2.Data, '-y');
-hold on
-p2 = plot(out.mv_picd.Time/60, out.mv_picd.Data, 'b');
-hold on
+%p0 = plot(out.mv_C1.time/60, out.mv_C1.data, 'r');
+% hold on
+% p1 = plot(out.mv_C2.Time/60, out.mv_C2.Data, '-y');
+% hold on
+% p2 = plot(out.mv_picd.Time/60, out.mv_picd.Data, 'b');
+% hold on
  p3 = plot(out.mv_pif.Time/60, out.mv_pif.Data, 'k');
 grid on
 xlabel('Tempo [min]')
 ylabel('Duty cycle [%]')
-axis([0 1.6e03 0 100]);
-legend([p0,p1,p2,p3],'MV C1','MV C2', 'MV PI ajuste1', 'MV PI ajuste2');
-
-
+axis([0 300 0 100]);
+%legend([p0,p1,p2,p3],'MV C1','MV C2', 'MV PI ajuste1', 'MV PI ajuste2');
 
 %% Parametros da planta
 Ke =   0.9729;     %ganho estatico da planta
