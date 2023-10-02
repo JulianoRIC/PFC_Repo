@@ -15,37 +15,23 @@
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Agilent 34970.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Agilent 34970/Agilent 34970.lvlib"/>
-				<Item Name="Close.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Close.vi"/>
-				<Item Name="Config Current.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Current.vi"/>
-				<Item Name="Config Display.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Display.vi"/>
-				<Item Name="Config Integration.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Configure/Config Integration.vi"/>
-				<Item Name="Config Line Filter and Zero Cross.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Line Filter and Zero Cross.vi"/>
-				<Item Name="Config Measure Average.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Measure Average.vi"/>
-				<Item Name="Config Measure Preset Normal.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Configure/Config Measure Preset Normal.vi"/>
-				<Item Name="Config Observation Time.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Observation Time.vi"/>
-				<Item Name="Config Voltage.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Voltage.vi"/>
-				<Item Name="Config Waveform.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Waveform.vi"/>
-				<Item Name="Config Wiring.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Configure/Config Wiring.vi"/>
+				<Item Name="GENie Clear SystErr Queue.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/_GENie.llb/GENie Clear SystErr Queue.vi"/>
+				<Item Name="GENie Close.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Close.vi"/>
 				<Item Name="GENie Config Current Limit.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Config Current Limit.vi"/>
 				<Item Name="GENie Config Output On-Off.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Config Output On-Off.vi"/>
 				<Item Name="GENie Config Power-On State.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Config Power-On State.vi"/>
 				<Item Name="GENie Config Voltage Limit.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Config Voltage Limit.vi"/>
+				<Item Name="GENie Error Query.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Error Query.vi"/>
+				<Item Name="GENie Formulate VI Call Chain.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/_GENie.llb/GENie Formulate VI Call Chain.vi"/>
 				<Item Name="GENie Initialize.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Initialize.vi"/>
 				<Item Name="GENie Meas Output Current.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Meas Output Current.vi"/>
 				<Item Name="GENie Meas Output Voltage.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Meas Output Voltage.vi"/>
-				<Item Name="Initialize.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Initialize.vi"/>
-				<Item Name="Query Condition Status.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Action-Status/Query Condition Status.vi"/>
-				<Item Name="Query Condition Status.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Utility/Query Condition Status.vi"/>
-				<Item Name="Read Measure.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Data/Read Measure.vi"/>
-				<Item Name="Read Numeric Normal.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Data/Read Numeric Normal.vi"/>
-				<Item Name="Read Range.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Action-Status/Read Range.vi"/>
-				<Item Name="Read Sample Rate.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Action-Status/Read Sample Rate.vi"/>
-				<Item Name="Read Waveform.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Data/Read Waveform.vi"/>
-				<Item Name="Reset Integration.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Action-Status/Reset Integration.vi"/>
-				<Item Name="Start Stop Integration.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Public/Action-Status/Start Stop Integration.vi"/>
-				<Item Name="Start Stop.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Action-Status/Start Stop.vi"/>
-				<Item Name="Wait Update.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Action-Status/Wait Update.vi"/>
-				<Item Name="Waveform Data Convert.vi" Type="VI" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Public/Utility/Waveform Data Convert.vi"/>
+				<Item Name="GENie Read Instrument Data.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Read Instrument Data.vi"/>
+				<Item Name="GENie Serial Poll Loop.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/_GENie.llb/GENie Serial Poll Loop.vi"/>
+				<Item Name="GENie Wait.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Wait.vi"/>
+				<Item Name="GENie Write to Instrument.vi" Type="VI" URL="/&lt;instrlib&gt;/GENie/GENie.llb/GENie Write to Instrument.vi"/>
+				<Item Name="Yokogawa PZ4000.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Yokogawa PZ4000/Yokogawa PZ4000.lvlib"/>
+				<Item Name="Yokogawa WT200 Series.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Yokogawa WT200 Series/Yokogawa WT200 Series.lvlib"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Acquire Semaphore.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/semaphor.llb/Acquire Semaphore.vi"/>
