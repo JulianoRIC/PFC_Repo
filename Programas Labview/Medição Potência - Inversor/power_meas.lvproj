@@ -10,6 +10,7 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="filter.vi" Type="VI" URL="../filter.vi"/>
 		<Item Name="new_main_save_encoder.vi" Type="VI" URL="../new_main_save_encoder.vi"/>
 		<Item Name="power_meas.vi" Type="VI" URL="../power_meas.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
