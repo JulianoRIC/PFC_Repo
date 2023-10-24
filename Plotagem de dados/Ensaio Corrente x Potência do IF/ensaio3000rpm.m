@@ -105,4 +105,38 @@ hold off
 axis([0 vecIter(end) 0 260])
 legend('Calculada','Lida');
 xlabel('tempo [s]')
- ylabel('PT [W]')
+ylabel('PT [W]')
+ 
+ 
+ 
+%% pesquisando os intervalos
+
+degraus = [vecIR(1)];
+init = [];
+t_rp = []; 
+
+%constroi vetor com valores diferentes dos degraus de PWM
+for i = 1: length(vecIR)-1
+    i = i + 1;
+    if vecIR(i) ~= vecIR(i-1) & vecIR(i) > 0
+        degraus(end+1) = vecIR(i);                            
+    end 
+end
+
+%registrando a primeira ocorrência de cada um deles dentro do vecPWM
+for i = 1 : length(degraus)   
+   init(end+1) = find(vecIR==degraus(i), 1);
+end
+
+%% 
+x= vecIR(229:270) 
+y= vecPCT(229:270)
+
+subplot(2,1,1)
+plot(vecIF)
+hold on
+plot(vecIR)
+legend('IF','IR')
+subplot(2,1,2)
+plot(vecPCT)
+legend('Pot')
