@@ -13,6 +13,7 @@
 		<Item Name="filter.vi" Type="VI" URL="../filter.vi"/>
 		<Item Name="name_file.vi" Type="VI" URL="../name_file.vi"/>
 		<Item Name="power_meas.vi" Type="VI" URL="../power_meas.vi"/>
+		<Item Name="Untitled 1.vi" Type="VI" URL="../../../../../../Desktop/Untitled 1.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Agilent 34970.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Agilent 34970/Agilent 34970.lvlib"/>
