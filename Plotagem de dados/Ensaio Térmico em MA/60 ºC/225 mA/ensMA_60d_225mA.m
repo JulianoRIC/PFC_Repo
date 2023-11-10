@@ -66,8 +66,8 @@ vecTP8  = C(:,8);   %temperatura do termopar do CI SMPS IC100
 vecTP10 = C(:,9);   %temperatura do termopar do indutor L100
 vecTP11 = C(:,10);  %temperatura do termopar do capacitor C112
 vecTP12 = C(:,11);  %temperatura do termopar do capacitor C504
-vecTP13 = C(:,11);  %temperatura do termopar do microcontrolador IC601
-vecTP15 = C(:,12);  %temperatura do dissipador
+vecTP13 = C(:,12);  %temperatura do termopar do microcontrolador IC601
+vecTP15 = C(:,13);  %temperatura do dissipador
 
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio

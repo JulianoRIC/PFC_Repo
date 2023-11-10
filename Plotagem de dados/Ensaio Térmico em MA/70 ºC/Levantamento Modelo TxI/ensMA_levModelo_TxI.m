@@ -15,18 +15,17 @@ monHeight = monHeight - offHeight; % usable screen height
 figHeight = monHeight/2;
 figWidth = monWidth/3;
 
-%% Extracao dos dados experimentais do ensaio com 1000 RPM
+%% Extracao dos dados experimentais do ensaio térmico em MA com Tamb = 70ºC  Vel = 3000 RPM e diferentes degraus de corrente
 
 nCol   = 5; % numero colunas
 nColl  = 6;
 nColll = 13;
 
-nSam  = 50409; %numero de amostras
-nSam2 = 10095;
+nSam  = 11742; %numero de amostras
 
-fName = '20231101_121048_meas_medsFreio__b.txt';  %valores de tensão e corrente
-gName = '20231101_121048_meas_medsWatt__b.txt';   %valores de potencia
-hName = '20231101_121048_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
+fName = '20231109_194028_meas_medsFreio__b.txt';  %valores de tensão e corrente
+gName = '20231109_194028_meas_medsWatt__b.txt';   %valores de potencia
+hName = '20231109_194028_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
 
 fileID  = fopen(fName,'r');
 fileID2 = fopen(gName,'r');
@@ -38,9 +37,8 @@ A = fscanf(fileID,formatSpec,[nCol nSam]);
 A = A';
 B = fscanf(fileID2,formatSpec2,[nColl nSam]);
 B = B';
-C = fscanf(fileID3,formatSpec3,[nColll nSam2]);
+C = fscanf(fileID3,formatSpec3,[nColll nSam]);
 C = C';
-
 
 %% Vetores das colunas
 vecIter = A(:,1); %time
@@ -66,8 +64,8 @@ vecTP8  = C(:,8);   %temperatura do termopar do CI SMPS IC100
 vecTP10 = C(:,9);   %temperatura do termopar do indutor L100
 vecTP11 = C(:,10);  %temperatura do termopar do capacitor C112
 vecTP12 = C(:,11);  %temperatura do termopar do capacitor C504
-vecTP13 = C(:,11);  %temperatura do termopar do microcontrolador IC601
-vecTP15 = C(:,12);  %temperatura do dissipador
+vecTP13 = C(:,12);  %temperatura do termopar do microcontrolador IC601
+vecTP15 = C(:,13);  %temperatura do dissipador
 
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio
@@ -84,7 +82,7 @@ plot(vecIter,vecIF)
 hold on
 plot(vecIter,vecIR)
 hold off
-axis([0 vecIter(end) 0.07 0.300])
+axis([0 vecIter(end) 0.095 0.325])
 legend('Medido','Referência');
 xlabel('tempo [s]')
 ylabel('Corrente [A]')
@@ -93,7 +91,7 @@ plot(vecIter,vecVF)
 hold on
 plot(vecIter,vecVR)
 hold off
-axis([0 vecIter(end) 0 18])
+axis([0 vecIter(end) 0 30.2])
 legend('Saída atual','Limite da fonte');
 xlabel('tempo [s]')
 ylabel('Tensão [V]')
@@ -108,24 +106,32 @@ set(gcf,'name','Valores de potencia')
 grid on
 hold on
 
-subplot(2,1,1)
+subplot(3,1,1)
 plot(vecIter,vecPCE)
 hold on
 plot(vecIter,vecPLE)
 hold off
-axis([0 nSam2 0 100])
+axis([0 nSam 0 400])
 legend('Calculada','Lida');
 xlabel('tempo [s]')
 ylabel('PE [W]')
-subplot(2,1,2)
+subplot(3,1,2)
 plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
 hold off
-axis([0 nSam2 0 100])
+axis([0 nSam 0 312])
 legend('Calculada','Lida');
 xlabel('tempo [s]')
 ylabel('PT [W]')
+subplot(3,1,3)
+hold on
+plot(vecIter,vecVel)
+hold off
+axis([0 nSam 0 3050])
+legend('Velocidade')
+xlabel('tempo [s]')
+ylabel('Vel [rpm]')
 
 
 
@@ -136,30 +142,139 @@ set(gcf,'OuterPosition',[0 figHeight figWidth figHeight]);
 set(gcf,'name','Valores de temperatura')
 
 grid on
+hold on
 
 plot(vecTP1)
-hold on
 plot(vecTP2)
 plot(vecTP3)
 plot(vecTP5)
-%hold on
 plot(vecTP6)
-%hold on
 plot(vecTP7)
-%hold on
 plot(vecTP8)
-%hold on
 plot(vecTP10)
-%hold on
 plot(vecTP11)
-%hold on
 plot(vecTP12)
-%hold on
 plot(vecTP13)
-%hold on
 plot(vecTP15)
 hold off
-axis([0 nSam2 40 80])
+
+axis([0 nSam 50 80])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [s]')
 ylabel('Temperatura [ºC]')
+
+
+
+%% todos separados
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP1)
+xlabel('tempo [s]')
+ylabel('TP 1')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP3)
+xlabel('tempo [s]')
+ylabel('TP 3')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP5)
+xlabel('tempo [s]')
+ylabel('TP 5')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP6)
+xlabel('tempo [s]')
+ylabel('TP 6')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP7)
+xlabel('tempo [s]')
+ylabel('TP 7')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP8)
+xlabel('tempo [s]')
+ylabel('TP 8')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP10)
+xlabel('tempo [s]')
+ylabel('TP 10')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP11)
+xlabel('tempo [s]')
+ylabel('TP 11')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP12)
+xlabel('tempo [s]')
+ylabel('TP 12')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP13)
+xlabel('tempo [s]')
+ylabel('TP 13')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
+figure
+subplot(2,1,1)
+plot(vecIter,vecTP15)
+xlabel('tempo [s]')
+ylabel('TP 15')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [s]')
+ylabel('Corrente [A]')
+
