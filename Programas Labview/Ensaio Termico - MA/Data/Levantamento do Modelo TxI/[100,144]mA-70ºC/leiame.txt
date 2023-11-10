@@ -1,0 +1,18 @@
+Início do Levantamento:  14h35min
+
+
+2) Levantamento das curvas térmicas x corrente do freio (carga mecânica) 
+
+	Condições iniciais:
+
+	Temperatura da Estufa:  70 ºC
+	Velocidade do Motor:    3000 RPM
+	Limite tensão da fonte: 30 V;
+
+	6 degraus de corrente [mA]: [100 144 188 232 276 320]
+
+
+	Resultados --> 11 curvas Tp_i x I_freio [ºC x mA]
+
+
+Interrompido em 144mA --> erro no Agilent

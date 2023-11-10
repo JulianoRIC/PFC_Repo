@@ -10,9 +10,9 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
+		<Item Name="backup_EnsTerm.vi" Type="VI" URL="../backup_EnsTerm.vi"/>
 		<Item Name="filter.vi" Type="VI" URL="../filter.vi"/>
 		<Item Name="name_file.vi" Type="VI" URL="../name_file.vi"/>
-		<Item Name="power_meas.vi" Type="VI" URL="../power_meas.vi"/>
 		<Item Name="Untitled 1.vi" Type="VI" URL="../../../../../../Desktop/Untitled 1.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
