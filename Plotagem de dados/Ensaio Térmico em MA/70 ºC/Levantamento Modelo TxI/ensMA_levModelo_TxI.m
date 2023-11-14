@@ -334,14 +334,13 @@ end
 %em minutos
 i_min = init/60;
 
-
 %relação degrau Corrente x Temperatura do termopar
  %t_rp    aa   bb    cc    dd    ee
  %degrau  0.1 0.188 0.232 0.276 0.32
 % interpretação: com degrau de 100 mA, a temperatura do termopar em regime permanente foi aa
  
 %valores de temperatura em regime permanente
-t_rp = showRegPerm(init(1:end), vecTP1)
+t_rp = showRegPerm(init(1:end), vecTP3)
  
 %% Relação ente dados colhidos em regime permanente pv(mv)
 %considerando apenas os incrementos
@@ -386,12 +385,8 @@ ylabel('\Delta Temperatura [ºC]')
 %tp8:  deltaI = [144 188] mA 
 %plot(vecTP8(4016:5878))
 
-%plotInter(vecIter, vecIR, vecTP6, 4016-40, 5878-40)
-
 %tp10:  deltaI = [100 144] mA 
 %plot(vecTP10(245:2211))
-
-%plotInter(vecIter, vecIR, vecTP10, 245-40, 2211-40)
 
 %tp11: deltaI = [144 188] mA -- n lin
 %plot(vecTP11(4016:5878))
@@ -402,27 +397,89 @@ ylabel('\Delta Temperatura [ºC]')
 %tp13:  deltaI = [232 276] mA 
 %plot(vecTP13(7732:9766))
 
-%plotInter(vecIter, vecIR, vecTP13, 7732-40, 9766-40)
-
 %tp15: dissipador (nao usado)
 
-vecTPx(3976, 5838)
 
-
-%% normalizacao
+%% normalizacao dos dados 
 
 %u = 0.144 mA --> 0.188 mA
-u = vecIR(init(2):init(3)+1); %inicio e fim do intervalo
-uN = u - degraus(2);
+%u = vecIR(init(3)-1:init(4)-1); %inicio e fim do intervalo
+%uN = u - degraus(2);
 
-%y = 67.3691 --> 67.9381 
-y = vecTP1(init(3):init(4)+1);  %inicio e fim do intervalo
-yN = y - t_rp(2);
+%u = 0.100 mA --> 0.144 mA
+%u = vecIR(init(2)-1:init(3)-1); %inicio e fim do intervalo
+%uN10 = u - degraus(1);
 
-%colocando em minutos
-x = (init(3):init(4)+1);
+%u = 0.232 mA --> 0.276 mA
+u = vecIR(init(5)-1:init(6)-1); %inicio e fim do intervalo
+uN12 = u - degraus(4);
+
+%% y1 = 67.3691 --> 67.9381
+t_rp = showRegPerm(init(1:end), vecTP1)
+y   = vecTP1(init(3)-1:init(4)-1); 
+yN  = y - t_rp(2);
+
+%% y3 = 66.0611 --> 66.3676
+t_rp = showRegPerm(init(1:end), vecTP3)
+y   = vecTP3(init(3)-1:init(4)-1);  %inicio e fim do intervalo
+yN3  = y - t_rp(2);
+
+%% y5 = 66.4021 -->  66.8479
+t_rp = showRegPerm(init(1:end), vecTP5)
+y   = vecTP5(init(3)-1:init(4)-1);  %inicio e fim do intervalo
+yN5  = y - t_rp(2);
+
+%% y6 = 66.3006 -->  66.7448
+t_rp = showRegPerm(init(1:end), vecTP6)
+y   = vecTP6(init(3)-1:init(4)-1);  %inicio e fim do intervalo
+yN6  = y - t_rp(2);
+
+%% y8 =  74.1812 -->  74.7262 
+t_rp = showRegPerm(init(1:end), vecTP8)
+y   = vecTP8(init(3)-1:init(4)-1);  %inicio e fim do intervalo
+yN8  = y - t_rp(2);
+
+%% y10 =  74.1812 -->  74.7262 
+t_rp = showRegPerm(init(1:end), vecTP10)
+y   = vecTP10(init(2)-1:init(3)-1);  %inicio e fim do intervalo
+yN10  = y - t_rp(1);
+
+%% y12 =  70.5573  --> 72.2327 
+t_rp = showRegPerm(init(1:end), vecTP12)
+y   = vecTP12(init(5)-1:init(6)-1);  %inicio e fim do intervalo
+yN12  = y - t_rp(4);
+
+%% y13 =   71.5732 -->  73.0474  
+t_rp = showRegPerm(init(1:end), vecTP13)
+y   = vecTP13(init(5)-1:init(6)-1);  %inicio e fim do intervalo
+yN13  = y - t_rp(4);
+
+%% colocando em minutos
+%x = (init(3)-1:init(4)-1);
 %xN = x - x(2);
 
+x = (init(2)-1:init(3)-1);
+xN10 = x - x(1);
+
+%x = (init(5)-1:init(6)-1);
+%xN12 = x - x(4);
+
+%%
+
+%nao normalizado (começa do ponto de operacao 2.5V)
+figure
+set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
+set(gcf,'name','Dados não normalizados')
+subplot(2,1,1)
+plot(x,y)
+hold on
+xlabel('tempo [min]')
+ylabel('Temperatura [ºC]')
+hold on
+subplot(2,1,2)
+plot(x,u)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
 
 % normalizado --> ponto de operação deslocado para a origem
 figure
@@ -430,15 +487,52 @@ set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
 set(gcf,'name','Dados normalizados')
 subplot(2,1,1)
 plot(xN,yN)
-xlabel('iteration')
+xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
 hold on
 subplot(2,1,2)
 plot(xN,uN)
-xlabel('iteration')
-ylabel('duty cycle [%]')
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
 
 
+%% Plantas
+
+%tp1
+tftp1 = tf([0 0.009301],[1 0.000233]);
+%tp3
+tftp3 = tf([0 0.004387],[1  9.9e-06]);
+%tp5
+tftp5 = tf([0 0.006868],[1 0.0001431]);
+%tp6
+tftp6 = tf([0 0.009227],[1 0.0006283]);
+%tp8
+tftp8 = tf([0 0.01466],[1  0.0009717]);
+%tp10
+tftp10 = tf([0  0.01071],[1  0.0007777]);
+%tp12
+tftp12 = tf([0   0.05135],[1  0.001306]);
+%tp13
+tftp13 = tf([0   0.04256],[1  0.001192]);
+
+
+step(tftp1)
+hold on
+%step(tftp3)
+%hold on
+step(tftp5)
+hold on
+step(tftp6)
+hold on
+step(tftp8)
+hold on
+% step(tftp10)
+% hold on
+% step(tftp12)
+% hold on
+% step(tftp13)
+% hold on
+legend('1','5','6','8')%,'10','12','13')
 
 %% registrando os valores da temperatura média em regime permanente
 function av = showRegPerm(a2, vecx)
@@ -450,18 +544,4 @@ function av = showRegPerm(a2, vecx)
             plot(vecx)
         end
     end
-end
-
-%% funcao para plotar dados com os intervalos desejados
-function p = plotInter(x, ref, y, b, f)
-
-subplot(2,1,1)
-plot(x(b:f),y(b:f))
-xlabel('tempo [min]')
-ylabel(strcat('TP [ºC]',string(x)))
-subplot(2,1,2)
-plot(x(b:f),ref(b:f))
-xlabel('tempo [min]')
-ylabel('Corrente [A]')
-
 end
