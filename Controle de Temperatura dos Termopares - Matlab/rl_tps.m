@@ -2,17 +2,17 @@ clear all
 close all
 clc
 
-%Código para projetar um controlador PID (dois zeros e dois polos) com o LR
-%Controle PID pelo  LR  --> C = Kc(1 + 1/Tis + sTd/(1+ alpha*sTd)) 
+%Código para projetar um controlador PI (um zeros e um polo) com o LR
+%Controle PID pelo  LR  --> C = Kc(1 + 1/Tis)
 %contem projeto do filtro, Bodes, DPZs.
 
 %% Parametros da planta
-Ke =   0.9729;     %ganho estatico da planta
-tau =  5.2110e+03;    %constante de tempo da equação linearizada perto do ponto de equilibrio
+Ke =   34.57;     %ganho estatico da planta
+tau =  1732;    %constante de tempo da equação linearizada perto do ponto de equilibrio
 
 %% Especificacoes MF
-t_5  = tau/3;   %tempo de 5%
-pico = 0.10;  %sobressinal 20% sempre em valor ABSOLUTO
+t_5  = tau/2.5;   %tempo de 5%
+pico = 0.5;  %sobressinal 10% sempre em valor ABSOLUTO
 
 syms zeta wn
 
@@ -21,7 +21,9 @@ fa= vpa(solve((pico ==  exp((-pi*zeta)/(sqrt(1 - zeta^2))))));
 fa = fa(1,:); 
 
 %frequencia natural (wn)
-wn = vpa(solve(t_5 == (3/(fa*wn))));    %para 0 < Xi <= 0.7 
+%wn = vpa(solve(t_5 == (3/(fa*wn))));    %para 0 < Xi <= 0.7 
+wn = vpa(solve(t_5 == (4.8/(fa*wn)))); %para 0.8 <= Xi <= 1
+%wn = vpa(solve(t_5 == 1.5*tau_rapido + 3*tau_lento)); %para 0.8 > Xi > 1
 
 %ponto desejado
 sd_imPositivo =  -fa*wn  + 1i*wn*sqrt(1-fa^2);  %parte real positiva
@@ -30,7 +32,7 @@ sd_imNegativo =  -fa*wn  - 1i*wn*sqrt(1-fa^2);   %parte real negativa
 %% Calculando contribuicoes dos polos e zeros do den da FT de malha fechada
 
 sd   = -fa*wn + 1i*wn*sqrt(1-fa^2); 
-polo = 0.0001919; %polo planta
+polo = 1/tau; %polo planta
 
 fase2 = 180 - rad2deg(double(atan( abs(imag(sd))/(-1*real(sd)))));
 fase3 = 180 - rad2deg(double(atan( abs(imag(sd))/(-1*real(sd) - polo))));
@@ -51,7 +53,7 @@ fasePROVAreal = rad2deg(double(atan( abs(imag(sd))/(zero + real(sd)))));
 %% Calculando K
 syms K  
 s = sd_imPositivo;
-num = K*(s + double(zero))*(Ke/5211);
+num = K*(s + double(zero))*(Ke/1732); %dividi o ganho da planta por conta da forma monica do polinomio
 den = s*(s+ double(polo));
 Kc_pos = double(vpa(solve(((1 + ((num/den)) == 0)))));
 s = sd_imNegativo;

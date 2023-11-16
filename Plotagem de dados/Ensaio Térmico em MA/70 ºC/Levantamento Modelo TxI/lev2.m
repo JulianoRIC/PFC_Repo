@@ -2,6 +2,8 @@ clear all
 close all
 clc
 
+%% Levantando modelos considerando degrau [276 320] mA --> limite
+
 %% Configuracao de um grid na tela para graficos
 
 screenSize = get(0,'screensize'); % gets screen size
@@ -84,7 +86,7 @@ for i=1:length(vecIter)
    minutos(end+1) = vecIter(i)/60; 
 end
 
-%vecIter = minutos; %convertendo para minutos
+vecIter = minutos; %convertendo para minutos
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio
 
@@ -210,7 +212,7 @@ i_min = init/60;
 % interpretação: com degrau de 100 mA, a temperatura do termopar em regime permanente foi aa
 
 % valores de temperatura em regime permanente
-t_rp = showRegPerm(init(1:end), vecTP13, vecIter, vecIR, 'TP13')
+t_rp = showRegPerm(init(1:end), vecTP5, vecIter, vecIR, 'TP5')
  
 %% Relação ente dados colhidos em regime permanente pv(mv)
 %considerando apenas os incrementos
@@ -236,171 +238,41 @@ ylabel('\Delta Temperatura [ºC]')
     end  
  end
 
-%% Determinando regiao de operacao aproximadamente linear
-
-%tp1:  deltaI = [144 188] mA
-%plot(vecTP1(4016:5877))
-
-%tp3:  deltaI = [276 320] mA 
-%subplot(2,1,1)
-%plot(vecTP3(9766:end-1))
-
-%tp5:  deltaI = [144 188] mA
-%plot(vecTP5(4016:5877)
-
-%tp6:  deltaI = [144 188] mA 
-%plot(vecTP6(4016:5877))
-
-%tp7: nao linear
-
-%tp8:  deltaI = [144 188] mA 
-%plot(vecTP8(4016:5878))
-
-%tp10:  deltaI = [100 144] mA 
-%plot(vecTP10(2210:4015))
-
-%tp11: nao linear
-
-%tp12:  deltaI = [100 144] mA 
-%plot(vecTP12(2210:4015))
-
-%tp13:  deltaI = [100 144] mA 
-subplot(2,1,1)
-plot(vecTP13(2210:4015))
-subplot(2,1,2)
-plot(vecIR(2210:4015))
-
-%tp15: dissipador (nao usado)
-
 
 %% normalizacao dos dados 
 
-%u = 0.100 mA --> 0.144 mA
-u = vecIR(init(2)-1:init(3)-1); %inicio e fim do intervalo
-uN13 = u - degraus(1);
-
-%u = 0.144 mA --> 0.188 mA
-%u = vecIR(init(3)-1:init(4)-1); %inicio e fim do intervalo
-%uN = u - degraus(2);
-
-%u = 0.188 mA --> 0.232 mA
-%u = vecIR(init(4)-1:init(5)-1); %inicio e fim do intervalo
-%uN3 = u - degraus(3);
-
-%u = 0.232 mA --> 0.276 mA
-%u = vecIR(init(5)-1:init(6)-1); %inicio e fim do intervalo
-%uNx = u - degraus(4);
-
 %u = 0.276 mA --> 0.320 mA
-%u = vecIR(init(6)-1:end-1); %inicio e fim do intervalo
-%uNx = u - degraus(5);
+u = vecIR(init(6)-1:end-1); %inicio e fim do intervalo
+uNx = u - degraus(5);
 
-
-%% y1 = 67.3691 --> 67.9381
-t_rp = showRegPerm(init(1:end), vecTP1,vecIter, vecIR, 'TP1')
-y   = vecTP1(init(3)-1:init(4)-1); 
-yN  = y - t_rp(2);
-
-%% y3 = 67.4160 -->  67.9705
-t_rp = showRegPerm(init(1:end), vecTP3,vecIter, vecIR, 'TP3')
-y   = vecTP3(init(6)-1:end-1);  %inicio e fim do intervalo
-yN3  = y - t_rp(5);
-
-%% y5 = 66.4021 -->  66.8479
 t_rp = showRegPerm(init(1:end), vecTP5,vecIter, vecIR, 'TP5')
-y   = vecTP5(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN5  = y - t_rp(2);
-
-%% y6 = 66.3006 -->  66.7448
-t_rp = showRegPerm(init(1:end), vecTP6,vecIter, vecIR, 'TP6')
-y   = vecTP6(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN6  = y - t_rp(2);
-
-%% y8 =  74.1812 -->  74.7262 
-t_rp = showRegPerm(init(1:end), vecTP8,vecIter, vecIR, 'TP8')
-y   = vecTP8(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN8  = y - t_rp(2);
-
-%% y10 =   75.2003 -->   75.6470
-t_rp = showRegPerm(init(1:end), vecTP10, vecIter, vecIR, 'TP10')
-y   = vecTP10(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN10  = y - t_rp(1);
-
-%% y12 = 67.8491 -->  68.4542
-t_rp = showRegPerm(init(1:end), vecTP12, vecIter, vecIR, 'TP12')
-y   = vecTP12(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN12  = y - t_rp(1);
-
-%% y13 =   69.1950 -->   69.7799  
-t_rp = showRegPerm(init(1:end), vecTP13, vecIter, vecIR, 'TP13')
-y   = vecTP13(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN13n  = y - t_rp(1);
-
-%% colocando em minutos
-% x = (init(3)-1:init(4)-1);
-% xN = x - x(2);
-
-%x = (init(2)-1:init(3)-1);
-%xN10 = x - x(1);
-
-%x = (init(5)-1:init(6)-1);
-%xN12 = x - x(4);
-
-%%
-
-%nao normalizado (começa do ponto de operacao 2.5V)
-figure
-set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-set(gcf,'name','Dados não normalizados')
-subplot(2,1,1)
-plot(x,y)
-hold on
-xlabel('tempo [min]')
-ylabel('Temperatura [ºC]')
-hold on
-subplot(2,1,2)
-plot(x,u)
-xlabel('tempo [min]')
-ylabel('Corrente [A]')
-
-% normalizado --> ponto de operação deslocado para a origem
-figure
-set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-set(gcf,'name','Dados normalizados')
-subplot(2,1,1)
-plot(xN,yN)
-xlabel('tempo [min]')
-ylabel('Temperatura [ºC]')
-hold on
-subplot(2,1,2)
-plot(xN,uN)
-xlabel('tempo [min]')
-ylabel('Corrente [A]')
+y   = vecTP5(init(6)-1:end-1); 
+yNx13  = y - t_rp(5);
 
 
 %% Plantas
 
 %tp1
-tftp1 = tf([0 0.009301],[1 0.000233]);
+tftp1 = tf([0  0.02098/0.000325],[1/0.000325 0.000325/0.000325]);
 %tp3
-tftp3 = tf([0 0.007539],[1 0.0001564]);
+tftp3 = tf([0 0.007539/0.0001564],[1/0.0001564 0.0001564/0.0001564]);
 %tp5
-tftp5 = tf([0 0.006868],[1 0.0001431]);
+tftp5 = tf([0  0.01996/0.0005774],[1/0.0005774 0.0005774/0.0005774]);
 %tp6
-tftp6 = tf([0 0.009227],[1 0.0006283]);
+tftp6 = tf([0 0.02534/0.0007834],[1/0.0007834 0.0007834/0.0007834]);
 %tp8
-tftp8 = tf([0 0.01466],[1 0.0009717]);
+tftp8 = tf([0 0.0358/0.001274],[1/0.001274 0.001274/0.001274]);
 %tp10
-tftp10 = tf([0 0.01071],[1 0.0007777]);
+tftp10 = tf([0 0.03274/0.001122],[1/0.001122 0.001122/0.001122]);
 %tp12
-tftp12 = tf([0 0.01807],[1 0.001191]);
+tftp12 = tf([0 0.0725/0.002071],[1/0.002071 0.002071/0.002071]);
 %tp13
-tftp13 = tf([0 0.01547],[1 0.0009927]);
+tftp13 = tf([0 0.05393/0.00154],[1/0.00154 0.00154/0.00154]);
 
 
 step(tftp1)
 hold on
-step(tftp3)
+step(tftp1)
 hold on
 step(tftp5)
 hold on
@@ -415,6 +287,38 @@ hold on
 step(tftp13)
 hold on
 legend('TP1','TP5','TP6','TP8','TP10','TP12','TP13')
+
+
+
+%% Modelo estimado pelo System Identification a partir dos dados normalizados
+
+planta = tftp1;
+
+%Gerando graficos 
+sim('simu_MA_lev')
+
+
+screenSize = get(0,'screensize'); % gets screen size
+monWidth = screenSize(3);
+monHeight = screenSize(4);
+offHeight = 0; % assumed height of system task bar
+monHeight = monHeight - offHeight; % usable screen height
+% establishing a 2x3 grid on the screen
+figHeight = monHeight/2;
+figWidth = monWidth/3;
+
+%Resposta em malha aberta
+figure
+set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
+set(gcf,'name','comparacao Resposta MA')
+plot(out.pvMA(:,2), 'r')
+hold on
+plot(y, '--c')
+xlabel('Tempo [s]')
+ylabel('Temperatura [ºC]')
+legend('Modelo Estimado', 'Dados medidos')
+
+
 
 %% registrando os valores da temperatura média em regime permanente
 function av = showRegPerm(a2, vecx, iter,ir,name)
