@@ -28,8 +28,8 @@ A = A';
 
 %% Vetores das colunas
 vecIter = A(:,1); %time
-vecT4   = A(:,2); %temperatura CH4
-vecT9   = A(:,3); %temperatura CH9
+vecT4   = A(:,2); %temperatura CH4: PT100 da parte debaixo (PT100L)
+vecT9   = A(:,3); %temperatura CH9: PT100 da parte de cima (PT100H)
 vecPWM  = A(:,4); %duty cycle PWM
 
 %media temperaturas
@@ -57,7 +57,7 @@ hold on
 plot(minutos,vecTM)
 hold off
 axis([0 minutos(end) 22 58])
-legend('CH4','CH9','TM');
+legend('PT100 L','PT 100 H','TM');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
 subplot(2,1,2)
@@ -166,11 +166,15 @@ ylabel('duty cycle [%]')
 
 %% Modelo estimado pelo System Identification a partir dos dados normalizados
 
-planta = tf(0.0001867, [1 0.0001919]);
+%na forma padrao
+planta = tf(0.0001867/0.0001919, [1/0.0001919 0.0001919/0.0001919]);
 
 %Gerando graficos 
 sim('simu_MA')
 
+%parametros do filtro
+order = 1;
+framelen = 541;
 
 screenSize = get(0,'screensize'); % gets screen size
 monWidth = screenSize(3);
@@ -185,10 +189,11 @@ figWidth = monWidth/3;
 figure
 set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
 set(gcf,'name','comparacao Resposta MA')
-plot(out.pvMA(:,2), 'ro')
+plot(xN, out.pvMA(:,2), 'r')
 hold on
-plot(y, '-.c')
-xlabel('Tempo [s]')
+plot(xN, sgolayfilt(y,order,framelen), '-b')
+xlabel('Tempo [min]')
 ylabel('Temperatura [ºC]')
+axis([0 length(xN)/60 35 40])
 legend('Modelo Estimado', 'Dados medidos')
 

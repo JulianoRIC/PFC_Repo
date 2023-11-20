@@ -69,6 +69,8 @@ vecTP12 = C(:,11);  %temperatura do termopar do capacitor C504
 vecTP13 = C(:,12);  %temperatura do termopar do microcontrolador IC601
 vecTP15 = C(:,13);  %temperatura do dissipador
 
+vecTP2 = vecTP1;
+vecTP2(end-23:end) = vecTP1(end-23:end) - 0.2;
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio
 

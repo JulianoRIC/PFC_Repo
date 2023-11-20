@@ -41,6 +41,7 @@ minutos = [];
 for i=1:length(vecIter) 
    minutos(end+1) = vecIter(i)/60; 
 end
+
 %% Graficos dos dados experimentais
 
 figure
@@ -55,7 +56,7 @@ plot(minutos,vecPV)
 hold on
 plot(minutos,vecSP)
 hold off
-axis([0 minutos(end) 22 58])
+axis([0 minutos(end) 22 52])
 legend('PV','SP');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
