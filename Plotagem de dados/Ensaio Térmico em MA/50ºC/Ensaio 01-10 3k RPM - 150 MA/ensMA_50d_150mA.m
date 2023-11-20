@@ -15,18 +15,18 @@ monHeight = monHeight - offHeight; % usable screen height
 figHeight = monHeight/2;
 figWidth = monWidth/3;
 
-%% Extracao dos dados experimentais do ensaio térmico em MA com Tamb = 60ºC, Ifreio = 150 mA e diferentes vel rotações
+%% Extracao dos dados experimentais do ensaio térmico em MA com Tamb = 50ºC, Ifreio = 150 mA e diferentes vel rotações
 
 nCol   = 5; % numero colunas
 nColl  = 6;
 nColll = 13;
 
-nSam  = 50409; %numero de amostras
-nSam2 = 10095;
+nSam  = 39201; %numero de amostras
+nSam2 = 7864;
 
-fName = '20231101_121048_meas_medsFreio__b.txt';  %valores de tensão e corrente
-gName = '20231101_121048_meas_medsWatt__b.txt';   %valores de potencia
-hName = '20231101_121048_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
+fName = '20231101_095003_meas_medsFreio__b.txt';  %valores de tensão e corrente
+gName = '20231101_095003_meas_medsWatt__b.txt';   %valores de potencia
+hName = '20231101_095003_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
 
 fileID  = fopen(fName,'r');
 fileID2 = fopen(gName,'r');
@@ -73,14 +73,13 @@ vecTP15 = C(:,13);  %temperatura do dissipador
 vecTP2 = vecTP1;
 vecTP2(end-23:end) = vecTP1(end-23:end) - 0.2;
 
-
 minutos = [];
 
 for i=1:length(vecIter) 
    minutos(end+1) = vecIter(i)/60; 
 end
 
-vecIter = minutos;
+vecIter = minutos; %convertendo para minutos
 
 tim = [];
 
@@ -104,7 +103,7 @@ plot(vecIter,vecIF)
 hold on
 plot(vecIter,vecIR)
 hold off
-axis([0 nSam2/60 0.07 0.151])
+axis([0 vecIter(end) 0 0.151])
 legend('Medido','Referência');
 xlabel('tempo [min]')
 ylabel('Corrente [A]')
@@ -113,7 +112,7 @@ plot(vecIter,vecVF)
 hold on
 plot(vecIter,vecVR)
 hold off
-axis([0 nSam2/60 0 18])
+axis([0 vecIter(end) 0 18])
 legend('Saída atual','Limite da fonte');
 xlabel('tempo [min]')
 ylabel('Tensão [V]')
@@ -133,7 +132,7 @@ plot(vecIter,vecPCE)
 hold on
 plot(vecIter,vecPLE)
 hold off
-axis([0 nSam2/60 0 100])
+axis([0 nSam2/60 0 250])
 legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PE [W]')
@@ -142,9 +141,9 @@ plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
 hold off
-axis([0 nSam2/60 0 100])
+axis([0 nSam2/60 0 250])
 legend('Calculada','Lida');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('PT [W]')
 subplot(3,1,3)
 hold on
@@ -180,8 +179,7 @@ plot(x,vecTP13)
 plot(x,vecTP15)
 hold off
 
-axis([0 nSam2/60 40 60])
+axis([0 nSam2/60 19 60])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
-

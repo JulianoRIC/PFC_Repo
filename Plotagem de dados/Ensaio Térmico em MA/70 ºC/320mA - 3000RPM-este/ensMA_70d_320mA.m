@@ -54,6 +54,7 @@ vecPCT = B(:,4); %potencia calculada total
 vecPLT = B(:,5); %potencia lida total
 vecVel = B(:,6); %referencia de velocidade
 
+x       = C(:,1); %time
 vecTP1  = C(:,2);   %temperatura do termopar do capacitor C011
 vecTP2  = C(:,3);   %temperatura do termopar do capacitor C009 (nao usar)
 vecTP3  = C(:,4);   %temperatura do termopar do choke L001
@@ -66,6 +67,26 @@ vecTP11 = C(:,10);  %temperatura do termopar do capacitor C112
 vecTP12 = C(:,11);  %temperatura do termopar do capacitor C504
 vecTP13 = C(:,12);  %temperatura do termopar do microcontrolador IC601
 vecTP15 = C(:,13);  %temperatura do dissipador
+
+vecTP2 = vecTP1;
+vecTP2(end-23:end) = vecTP1(end-23:end) - 0.2;
+
+
+minutos = [];
+
+for i=1:length(vecIter) 
+   minutos(end+1) = vecIter(i)/60; 
+end
+
+vecIter = minutos;
+
+tim = [];
+
+for i=1:length(x) 
+   tim(end+1) = x(i)/60; 
+end
+
+x = tim; %convertendo para minutos
 
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio
@@ -82,18 +103,18 @@ plot(vecIter,vecIF)
 hold on
 plot(vecIter,vecIR)
 hold off
-%axis([0 vecIter(end) 0.07 0.23])
+axis([0 nSam/60 0 .325])
 legend('Medido','Referência');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('Corrente [A]')
 subplot(2,1,2)
 plot(vecIter,vecVF)
 hold on
 plot(vecIter,vecVR)
 hold off
-%axis([0 vecIter(end) 0 18])
+axis([0 nSam/60 0 31])
 legend('Saída atual','Limite da fonte');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('Tensão [V]')
  
  
@@ -111,16 +132,16 @@ plot(vecIter,vecPCE)
 hold on
 plot(vecIter,vecPLE)
 hold off
-%axis([0 nSam2 0 230])
+axis([0 nSam/60 0 420])
 legend('Calculada','Lida');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('PE [W]')
 subplot(3,1,2)
 plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
 hold off
-%axis([0 nSam2 0 230])
+axis([0 nSam/60 0 420])
 legend('Calculada','Lida');
 xlabel('tempo [s]')
 ylabel('PT [W]')
@@ -128,9 +149,9 @@ subplot(3,1,3)
 hold on
 plot(vecIter,vecVel)
 hold off
-%axis([0 nSam2 0 4050])
+axis([0 nSam/60 0 4050])
 legend('Velocidade')
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('Vel [rpm]')
 
 
@@ -144,24 +165,25 @@ set(gcf,'name','Valores de temperatura')
 grid on
 hold on
 
-plot(vecTP1)
-plot(vecTP2)
-plot(vecTP3)
-plot(vecTP5)
-plot(vecTP6)
-plot(vecTP7)
-plot(vecTP8)
-plot(vecTP10)
-plot(vecTP11)
-plot(vecTP12)
-plot(vecTP13)
-plot(vecTP15)
+plot(x,vecTP1)
+plot(x,vecTP2)
+plot(x,vecTP3)
+plot(x,vecTP5)
+plot(x,vecTP6)
+plot(x,vecTP7)
+plot(x,vecTP8)
+plot(x,vecTP10)
+plot(x,vecTP11)
+plot(x,vecTP12)
+plot(x,vecTP13)
+plot(x,vecTP15)
 hold off
 
-%axis([0 nSam2 40 80])
+axis([0 161.040 19 80])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
+
 
 %% todos separados
 

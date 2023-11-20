@@ -292,31 +292,31 @@ legend('TP1','TP5','TP6','TP8','TP10','TP12','TP13')
 
 %% Modelo estimado pelo System Identification a partir dos dados normalizados
 
-planta = tftp1;
+planta = tftp5;
 
-%Gerando graficos 
-sim('simu_MA_lev')
-
-
-screenSize = get(0,'screensize'); % gets screen size
-monWidth = screenSize(3);
-monHeight = screenSize(4);
-offHeight = 0; % assumed height of system task bar
-monHeight = monHeight - offHeight; % usable screen height
-% establishing a 2x3 grid on the screen
-figHeight = monHeight/2;
-figWidth = monWidth/3;
-
-%Resposta em malha aberta
-figure
-set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-set(gcf,'name','comparacao Resposta MA')
-plot(out.pvMA(:,2), 'r')
-hold on
-plot(y, '--c')
-xlabel('Tempo [s]')
-ylabel('Temperatura [ºC]')
-legend('Modelo Estimado', 'Dados medidos')
+% %Gerando graficos 
+% sim('simu_MA_lev')
+% 
+% 
+% screenSize = get(0,'screensize'); % gets screen size
+% monWidth = screenSize(3);
+% monHeight = screenSize(4);
+% offHeight = 0; % assumed height of system task bar
+% monHeight = monHeight - offHeight; % usable screen height
+% % establishing a 2x3 grid on the screen
+% figHeight = monHeight/2;
+% figWidth = monWidth/3;
+% 
+% %Resposta em malha aberta
+% figure
+% set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
+% set(gcf,'name','comparacao Resposta MA')
+% plot(out.pvMA(:,2), 'r')
+% hold on
+% plot(y, '--c')
+% xlabel('Tempo [s]')
+% ylabel('Temperatura [ºC]')
+% legend('Modelo Estimado', 'Dados medidos')
 
 
 

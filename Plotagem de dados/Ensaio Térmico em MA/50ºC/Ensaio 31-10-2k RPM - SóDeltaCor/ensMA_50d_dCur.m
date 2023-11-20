@@ -15,18 +15,18 @@ monHeight = monHeight - offHeight; % usable screen height
 figHeight = monHeight/2;
 figWidth = monWidth/3;
 
-%% Extracao dos dados experimentais do ensaio térmico em MA com Tamb = 60ºC, Ifreio = 150 mA e diferentes vel rotações
+%% Extracao dos dados experimentais do ensaio térmico em MA com Tamb = 50ºC, 2000 RPM e diferentes Ifreio
 
 nCol   = 5; % numero colunas
 nColl  = 6;
 nColll = 13;
 
-nSam  = 50409; %numero de amostras
-nSam2 = 10095;
+nSam  = 14864; %numero de amostras
+nSam2 = 2982;
 
-fName = '20231101_121048_meas_medsFreio__b.txt';  %valores de tensão e corrente
-gName = '20231101_121048_meas_medsWatt__b.txt';   %valores de potencia
-hName = '20231101_121048_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
+fName = '20231031_192105_meas_medsFreio__b.txt';  %valores de tensão e corrente
+gName = '20231031_192105_meas_medsWatt__b.txt';   %valores de potencia
+hName = '20231031_192105_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF
 
 fileID  = fopen(fName,'r');
 fileID2 = fopen(gName,'r');
@@ -73,14 +73,13 @@ vecTP15 = C(:,13);  %temperatura do dissipador
 vecTP2 = vecTP1;
 vecTP2(end-23:end) = vecTP1(end-23:end) - 0.2;
 
-
 minutos = [];
 
 for i=1:length(vecIter) 
    minutos(end+1) = vecIter(i)/60; 
 end
 
-vecIter = minutos;
+vecIter = minutos; %convertendo para minutos
 
 tim = [];
 
@@ -104,7 +103,7 @@ plot(vecIter,vecIF)
 hold on
 plot(vecIter,vecIR)
 hold off
-axis([0 nSam2/60 0.07 0.151])
+axis([0 vecIter(end) 0 0.255])
 legend('Medido','Referência');
 xlabel('tempo [min]')
 ylabel('Corrente [A]')
@@ -113,7 +112,7 @@ plot(vecIter,vecVF)
 hold on
 plot(vecIter,vecVR)
 hold off
-axis([0 nSam2/60 0 18])
+axis([0 vecIter(end) 0 18])
 legend('Saída atual','Limite da fonte');
 xlabel('tempo [min]')
 ylabel('Tensão [V]')
@@ -133,7 +132,7 @@ plot(vecIter,vecPCE)
 hold on
 plot(vecIter,vecPLE)
 hold off
-axis([0 nSam2/60 0 100])
+axis([0 nSam2/60 0 150])
 legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PE [W]')
@@ -142,15 +141,15 @@ plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
 hold off
-axis([0 nSam2/60 0 100])
+axis([0 nSam2/60 0 150])
 legend('Calculada','Lida');
-xlabel('tempo [s]')
+xlabel('tempo [min]')
 ylabel('PT [W]')
 subplot(3,1,3)
 hold on
 plot(vecIter,vecVel)
 hold off
-axis([0 nSam2/60 0 4050])
+axis([0 nSam2/60 0 2050])
 legend('Velocidade')
 xlabel('tempo [min]')
 ylabel('Vel [rpm]')
@@ -184,4 +183,139 @@ axis([0 nSam2/60 40 60])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
+
+
+%% tp1
+figure
+subplot(2,1,1)
+plot(x,vecTP1)
+xlabel('tempo [min]')
+ylabel('TP 1')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+
+%% tp2
+figure
+subplot(2,1,1)
+plot(x,vecTP2)
+xlabel('tempo [min]')
+ylabel('TP 2')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+
+%% tp3
+figure
+subplot(2,1,1)
+plot(x,vecTP3)
+xlabel('tempo [min]')
+ylabel('TP 3')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp5
+figure
+subplot(2,1,1)
+plot(x,vecTP5)
+xlabel('tempo [min]')
+ylabel('TP 5')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp6
+figure
+subplot(2,1,1)
+plot(x,vecTP6)
+xlabel('tempo [min]')
+ylabel('TP 6')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp 7
+figure
+subplot(2,1,1)
+plot(x,vecTP7)
+xlabel('tempo [min]')
+ylabel('TP 7')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp 8
+figure
+subplot(2,1,1)
+plot(x,vecTP8)
+xlabel('tempo [min]')
+ylabel('TP 8')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp 10
+figure
+subplot(2,1,1)
+plot(x,vecTP10)
+xlabel('tempo [min]')
+ylabel('TP 10')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp11
+figure
+subplot(2,1,1)
+plot(x,vecTP11)
+xlabel('tempo [min]')
+ylabel('TP 11')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp12
+figure
+subplot(2,1,1)
+plot(x,vecTP12)
+xlabel('tempo [min]')
+ylabel('TP 12')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp13
+figure
+subplot(2,1,1)
+plot(x,vecTP13)
+xlabel('tempo [min]')
+ylabel('TP 13')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
+
+%% tp15
+figure
+subplot(2,1,1)
+plot(x,vecTP15)
+xlabel('tempo [min]')
+ylabel('TP 15')
+subplot(2,1,2)
+plot(vecIter,vecIR)
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
 
