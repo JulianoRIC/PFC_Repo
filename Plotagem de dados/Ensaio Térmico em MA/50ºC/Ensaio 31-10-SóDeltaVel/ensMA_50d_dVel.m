@@ -132,7 +132,7 @@ plot(vecIter,vecPCE)
 hold on
 plot(vecIter,vecPLE)
 hold off
-axis([0 nSam2/60 0 150])
+axis([0 nSam2/60 0 100])
 legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PE [W]')
@@ -141,7 +141,7 @@ plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
 hold off
-axis([0 nSam2/60 0 150])
+axis([0 nSam2/60 0 100])
 legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PT [W]')
@@ -149,7 +149,7 @@ subplot(3,1,3)
 hold on
 plot(vecIter,vecVel)
 hold off
-axis([0 nSam2/60 0 2050])
+axis([0 nSam2/60 0 4050])
 legend('Velocidade')
 xlabel('tempo [min]')
 ylabel('Vel [rpm]')
@@ -179,7 +179,7 @@ plot(x,vecTP13)
 plot(x,vecTP15)
 hold off
 
-axis([0 nSam2/60 40 60])
+axis([0 nSam2/60 19 60])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
