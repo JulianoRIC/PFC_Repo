@@ -11,6 +11,9 @@
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
 		<Item Name="ensterMF.vi" Type="VI" URL="../ensterMF.vi"/>
+		<Item Name="filter.vi" Type="VI" URL="../filter.vi"/>
+		<Item Name="name_file.vi" Type="VI" URL="../name_file.vi"/>
+		<Item Name="noslimites.vi" Type="VI" URL="../noslimites.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="Agilent 34970.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Agilent 34970/Agilent 34970.lvlib"/>
@@ -218,14 +221,12 @@
 			</Item>
 			<Item Name="Calculate_checksum.vi" Type="VI" URL="../vis/serial_inverter.llb/Calculate_checksum.vi"/>
 			<Item Name="Expected_response.vi" Type="VI" URL="../vis/serial_inverter.llb/Expected_response.vi"/>
-			<Item Name="filter.vi" Type="VI" URL="../filter.vi"/>
 			<Item Name="integration_translator.vi" Type="VI" URL="../vis/wt_wattmeter.llb/integration_translator.vi"/>
 			<Item Name="kernel32.dll" Type="Document" URL="kernel32.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
 			<Item Name="libsystem_kernel.dylib" Type="Document" URL="/usr/lib/system/libsystem_kernel.dylib"/>
 			<Item Name="measurements_to_cluster.vi" Type="VI" URL="../vis/wt_wattmeter.llb/measurements_to_cluster.vi"/>
-			<Item Name="name_file.vi" Type="VI" URL="../name_file.vi"/>
 			<Item Name="nilvaiu.dll" Type="Document" URL="nilvaiu.dll">
 				<Property Name="NI.PreserveRelativePath" Type="Bool">true</Property>
 			</Item>
