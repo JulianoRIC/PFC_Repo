@@ -238,7 +238,11 @@ ylabel('\Delta Temperatura [ºC]')
     end  
  end
 
-
+%tp5:  deltaI = [276 320] mA 
+subplot(2,1,1)
+plot(vecTP5(init(6)-1:end-1))
+subplot(2,1,2)
+plot(vecIR(init(6)-1:end-1))
 %% normalizacao dos dados 
 
 %u = 0.276 mA --> 0.320 mA
@@ -294,29 +298,34 @@ legend('TP1','TP5','TP6','TP8','TP10','TP12','TP13')
 
 planta = tftp5;
 
-% %Gerando graficos 
-% sim('simu_MA_lev')
-% 
-% 
-% screenSize = get(0,'screensize'); % gets screen size
-% monWidth = screenSize(3);
-% monHeight = screenSize(4);
-% offHeight = 0; % assumed height of system task bar
-% monHeight = monHeight - offHeight; % usable screen height
-% % establishing a 2x3 grid on the screen
-% figHeight = monHeight/2;
-% figWidth = monWidth/3;
-% 
-% %Resposta em malha aberta
-% figure
-% set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-% set(gcf,'name','comparacao Resposta MA')
-% plot(out.pvMA(:,2), 'r')
-% hold on
-% plot(y, '--c')
-% xlabel('Tempo [s]')
-% ylabel('Temperatura [ºC]')
-% legend('Modelo Estimado', 'Dados medidos')
+%Gerando graficos 
+sim('simu_MA_lev')
+
+x = [];
+
+for i=1:length(y) 
+   x(end+1) = i/60; 
+end
+
+screenSize = get(0,'screensize'); % gets screen size
+monWidth = screenSize(3);
+monHeight = screenSize(4);
+offHeight = 0; % assumed height of system task bar
+monHeight = monHeight - offHeight; % usable screen height
+% establishing a 2x3 grid on the screen
+figHeight = monHeight/2;
+figWidth = monWidth/3;
+
+%Resposta em malha aberta
+figure
+set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
+set(gcf,'name','comparacao Resposta MA')
+plot(x,out.pvMA(:,2), 'r')
+hold on
+plot(x,y, '-b')
+xlabel('Tempo [min]')
+ylabel('Temperatura [ºC]')
+legend('Modelo Estimado', 'Dados medidos')
 
 
 
