@@ -82,6 +82,9 @@ vecTP15 = sgolayfilt(C(:,13),order,framelen);  %temperatura do dissipador
 
 minutos = [];
 
+vecTP2 = vecTP1;
+vecTP2(end-23:end) = vecTP1(end-23:end) - 0.05;
+
 for i=1:length(vecIter) 
    minutos(end+1) = vecIter(i)/60; 
 end
@@ -212,7 +215,7 @@ i_min = init/60;
 % interpretação: com degrau de 100 mA, a temperatura do termopar em regime permanente foi aa
 
 % valores de temperatura em regime permanente
-t_rp = showRegPerm(init(1:end), vecTP5, vecIter, vecIR, 'TP5')
+t_rp = showRegPerm(init(1:end), vecTP1, vecIter, vecIR, 'TP1')
  
 %% Relação ente dados colhidos em regime permanente pv(mv)
 %considerando apenas os incrementos
@@ -237,27 +240,42 @@ ylabel('\Delta Temperatura [ºC]')
         dPV(end+1) = ny(i+1) - ny(i);
     end  
  end
-
+ 
+ tempo = []
+ for i=1:length(vecTP1(init(6)-1:end-1))
+   tempo(end+1) = i/60; 
+end
+ 
 %tp5:  deltaI = [276 320] mA 
 subplot(2,1,1)
-plot(vecTP5(init(6)-1:end-1))
+plot(tempo,vecTP1(init(6)-1:end-1))
+xlabel('Tempo [min]')
+ylabel('Corrente [A]')
 subplot(2,1,2)
-plot(vecIR(init(6)-1:end-1))
+plot(tempo,vecIR(init(6)-1:end-1))
+xlabel('Tempo [min]')
+ylabel('Temperatura [ºC]')
 %% normalizacao dos dados 
 
 %u = 0.276 mA --> 0.320 mA
-u = vecIR(init(6)-1:end-1); %inicio e fim do intervalo
+u = vecIR(init(6):end); %inicio e fim do intervalo
 uNx = u - degraus(5);
 
-t_rp = showRegPerm(init(1:end), vecTP5,vecIter, vecIR, 'TP5')
-y   = vecTP5(init(6)-1:end-1); 
-yNx13  = y - t_rp(5);
+t_rp = showRegPerm(init(1:end), vecTP1,vecIter, vecIR, 'TP1')
+y   = vecTP1(init(6)-1:end-1); 
+yNx  = y - t_rp(5);
 
-
+%% 
+subplot(2,1,1)
+plot(yNx)%(init(6)-1:end-1))
+subplot(2,1,2)
+plot(uNx)%(init(6)-1:end-1))
 %% Plantas
 
 %tp1
 tftp1 = tf([0  0.02098/0.000325],[1/0.000325 0.000325/0.000325]);
+%tp2
+tftp2 = tf([0  0.02113/0.0003366],[1/0.0003366 0.0003366/0.0003366]);
 %tp3
 tftp3 = tf([0 0.007539/0.0001564],[1/0.0001564 0.0001564/0.0001564]);
 %tp5
@@ -276,7 +294,9 @@ tftp13 = tf([0 0.05393/0.00154],[1/0.00154 0.00154/0.00154]);
 
 step(tftp1)
 hold on
-step(tftp1)
+step(tftp2)
+hold on
+step(tftp3)
 hold on
 step(tftp5)
 hold on
@@ -290,13 +310,13 @@ step(tftp12)
 hold on
 step(tftp13)
 hold on
-legend('TP1','TP5','TP6','TP8','TP10','TP12','TP13')
+legend('TP1','TP2', 'TP3', 'TP5','TP6','TP8','TP10','TP12','TP13')
 
 
 
 %% Modelo estimado pelo System Identification a partir dos dados normalizados
 
-planta = tftp5;
+planta = tftp1;
 
 %Gerando graficos 
 sim('simu_MA_lev')

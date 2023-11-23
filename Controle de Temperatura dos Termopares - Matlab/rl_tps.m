@@ -7,11 +7,11 @@ clc
 %contem projeto do filtro, Bodes, DPZs.
 
 %% Parametros da planta
-Ke =   34.57;     %ganho estatico da planta
-tau =  1732;    %constante de tempo da equação linearizada perto do ponto de equilibrio
+Ke =   64.55;     %ganho estatico da planta
+tau =  3077;    %constante de tempo da equação linearizada perto do ponto de equilibrio
 
 %% Especificacoes MF
-t_5  = tau/2.5;   %tempo de 5%
+t_5  = tau/3;   %tempo de 5%
 pico = 0.05;  %sobressinal 10% sempre em valor ABSOLUTO
 
 syms zeta wn
@@ -53,7 +53,7 @@ fasePROVAreal = rad2deg(double(atan( abs(imag(sd))/(zero + real(sd)))));
 %% Calculando K
 syms K  
 s = sd_imPositivo;
-num = K*(s + double(zero))*(Ke/1732); %dividi o ganho da planta por conta da forma monica do polinomio
+num = K*(s + double(zero))*(Ke/tau); %dividi o ganho da planta por conta da forma monica do polinomio
 den = s*(s+ double(polo));
 Kc_pos = double(vpa(solve(((1 + ((num/den)) == 0)))));
 s = sd_imNegativo;
@@ -70,15 +70,14 @@ P = Ke/(1+s*tau);
 [num_P,den_P] = tfdata(P);
 
 %FT do controlador PI
-C = Kc*((s+double(zero))/s);
-[num_C,den_C] = tfdata(C);
+ C = Kc*((s+double(zero))/s);
+ [num_C,den_C] = tfdata(C);
 
 
-Kp  = 83.1410;
-tauk= 206.2967;
-Ki = Kp/tauk  %Kp/tau
-Ti = Kc/Ki
+ Kp  = 0.26336
+ Ti = Kp/(Kp*0.003251)
 
+ C2 = (Kp*s + (Kp/Ti))/s;
 %% 
 %funcao de transferencia de malha fechada de Y/R
 Hr =  minreal((C*P)/(1 + (C*P)));
@@ -98,10 +97,11 @@ Huq =  minreal((-C)/(1 + (C*P)));
 
 %% Desenhando o LR
 
-%sem filtro
+%sem filtrot_
 rlocus(C*P)
 
-%% Respostas das FT MF sem o Filtro
+%% Respostas das FT MF sem o FiltroC
+
 
 figure
 step(Hr)  %resposta ao degrau do sistema em MF
