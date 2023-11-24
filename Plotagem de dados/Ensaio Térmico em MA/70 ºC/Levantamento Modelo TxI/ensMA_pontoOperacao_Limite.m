@@ -267,9 +267,11 @@ yNx  = y - t_rp(5);
 
 %% 
 subplot(2,1,1)
-plot(yNx)%(init(6)-1:end-1))
+plot(y)
+axis([0 length(y) 69.8603 71.26])
 subplot(2,1,2)
-plot(uNx)%(init(6)-1:end-1))
+plot(u)
+
 %% Plantas
 
 %tp1

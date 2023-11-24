@@ -84,7 +84,7 @@ for i=1:length(vecIter)
    minutos(end+1) = vecIter(i)/60; 
 end
 
-%vecIter = minutos; %convertendo para minutos
+vecIter = minutos; %convertendo para minutos
 
 %% Graficos dos valores de corrente e tensão medidos/aplicados ao freio
 
@@ -414,7 +414,7 @@ step(tftp12)
 hold on
 step(tftp13)
 hold on
-legend('TP1','TP5','TP6','TP8','TP10','TP12','TP13')
+legend('TP1','TP3','TP5','TP6','TP8','TP10','TP12','TP13')
 
 %% registrando os valores da temperatura média em regime permanente
 function av = showRegPerm(a2, vecx, iter,ir,name)
