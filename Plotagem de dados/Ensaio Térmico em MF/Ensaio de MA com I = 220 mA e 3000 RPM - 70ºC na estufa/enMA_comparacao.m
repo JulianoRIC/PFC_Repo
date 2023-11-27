@@ -23,12 +23,12 @@ nColl  = 6;
 nColll = 13;
 nCol4  = 4;
 
-nSam  =  4330; %numero de amostras
+nSam  =  14737; %numero de amostras
 
-fName = '20231123_170327_meas_medsFreio__b.txt';  %valores de tensão e corrente
-gName = '20231123_170327_meas_medsWatt__b.txt';   %valores de potencia
-hName = '20231123_170327_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF e MA
-iName = '20231123_170327_meas_medsETMF__b.txt';   %temperaturas dos termopares do IF e MF
+fName = '20231124_145450_meas_medsFreio__b.txt';  %valores de tensão e corrente
+gName = '20231124_145450_meas_medsWatt__b.txt';   %valores de potencia
+hName = '20231124_145450_meas_medsETMA__b.txt';   %temperaturas dos termopares do IF e MA
+iName = '20231124_145450_meas_medsETMF__b.txt';   %temperaturas dos termopares do IF e MF
 
 fileID  = fopen(fName,'r');
 fileID2 = fopen(gName,'r');
@@ -200,15 +200,29 @@ ylabel('Temperatura [ºC]')
 %% todos separados
 
 %% tp1
+ref = [];
+for i = 1:length(vecTP1)
+    if i < 84.1*60
+        ref(i) = 0;
+    else
+        ref(i) = 70;
+    end
+end
+
 figure
 subplot(2,1,1)
 plot(vecIter,vecTP1)
+hold on
+%plot(vecIter, vecSP)
 xlabel('tempo [min]')
-ylabel('TP 1')
+ylabel('TP 1 [ºC]')
+%legend('SP', 'PV')
+axis([80 251.6 62.77 70.1])
 subplot(2,1,2)
 plot(vecIter,vecIF)
 xlabel('tempo [min]')
 ylabel('Corrente [A]')
+axis([80 251.6 0 0.22])
 
 
 %% tp3
