@@ -139,14 +139,14 @@ set(gcf,'name','Dados não normalizados')
 subplot(2,1,1)
 plot(x,y)
 hold on
-xlabel('iteration')
+xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
 axis([x(1) x(end) 34 40])
 hold on
 subplot(2,1,2)
 plot(x,u)
 axis([x(1) x(end) 9 16])
-xlabel('iteration')
+xlabel('tempo [min]')
 ylabel('duty cycle [%]')
 
 % normalizado --> ponto de operação deslocado para a origem
@@ -160,7 +160,7 @@ ylabel('Temperatura [ºC]')
 hold on
 subplot(2,1,2)
 plot(xN,uN)
-xlabel('iteration')
+xlabel('tempo [min]')
 ylabel('duty cycle [%]')
 
 
@@ -169,7 +169,7 @@ ylabel('duty cycle [%]')
 %na forma padrao
 planta = tf(0.0001867/0.0001919, [1/0.0001919 0.0001919/0.0001919]);
 
-%Gerando graficos 
+% Gerando graficos 
 sim('simu_MA')
 
 %parametros do filtro

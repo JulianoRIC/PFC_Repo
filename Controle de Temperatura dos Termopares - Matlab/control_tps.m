@@ -6,13 +6,16 @@ close all
 
 %% Modelo da planta estimado pelo System Identification a partir dos dados normalizados
 
-P = tf([0  0.02098/0.000325],[1/0.000325 0.000325/0.000325]);
+P = tf([0 0.01762/0.000461],[1/0.000461 1]);
 
 
 %% Controlador 
 
 % ajuste do controlador pelo LR
-C = tf( [0.2634 0.0008563], [1 0]);
+C = tf( [0.28783 0.0009118], [1 0]);
+
+
+pontoini = 70.4458;
 
 %% Resposta em malha fechada 
 sim('simuMFtps')

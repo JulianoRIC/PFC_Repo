@@ -78,6 +78,9 @@ vecTP12 = sgolayfilt(C(:,11),order,framelen);  %temperatura do termopar do capac
 vecTP13 = sgolayfilt(C(:,12),order,framelen);  %temperatura do termopar do microcontrolador IC601
 vecTP15 = sgolayfilt(C(:,13),order,framelen);  %temperatura do dissipador
 
+vecTP2 = vecTP1;
+vecTP2(end-23:end) = vecTP1(end-23:end) - 0.2;
+
 minutos = [];
 
 for i=1:length(vecIter) 
@@ -100,7 +103,7 @@ plot(vecIter,vecIF)
 hold on
 plot(vecIter,vecIR)
 hold off
-%axis([0 vecIter(end) 0.095 0.325])
+axis([0 vecIter(end-60) 0.095 0.350])
 legend('Medido','Referência');
 xlabel('tempo [min]')
 ylabel('Corrente [A]')
@@ -109,7 +112,7 @@ plot(vecIter,vecVF)
 hold on
 plot(vecIter,vecVR)
 hold off
-%axis([0 vecIter(end) 0 30.2])
+axis([0 vecIter(end-60) 0 32])
 legend('Saída atual','Limite da fonte');
 xlabel('tempo [min]')
 ylabel('Tensão [V]')
@@ -125,29 +128,29 @@ grid on
 hold on
 
 subplot(3,1,1)
-plot(vecIter,vecPCE)
-hold on
+%plot(vecIter,vecPCE)
+%hold on
 plot(vecIter,vecPLE)
-hold off
-%axis([0 nSam/60 0 410])
-legend('Calculada','Lida');
+%hold off
+axis([0 nSam/60 0 410])
+%legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PE [W]')
 subplot(3,1,2)
-plot(vecIter,vecPCT)
+%plot(vecIter,vecPCT)
 hold on
 plot(vecIter,vecPLT)
-hold off
-%axis([0 nSam/60 0 320])
-legend('Calculada','Lida');
+%hold off
+axis([0 nSam/60 0 410])
+%legend('Calculada','Lida');
 xlabel('tempo [min]')
 ylabel('PT [W]')
 subplot(3,1,3)
 hold on
 plot(vecIter,vecVel)
 hold off
-%axis([0 nSam/60 0 3100])
-legend('Velocidade')
+axis([0 nSam/60 0 4000])
+%legend('Velocidade')
 xlabel('tempo [min]')
 ylabel('Vel [rpm]')
 
@@ -176,7 +179,7 @@ plot(vecIter,vecTP13)
 plot(vecIter,vecTP15)
 hold off
 
-axis([0 nSam/60 19 80])
+axis([0 nSam/60 19 80.2])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
@@ -266,123 +269,118 @@ plot(vecTP1(20221:end-1))
 
 %tp13:  deltaI = [100 144] mA 
 subplot(2,1,1)
-plot(vecTP1(20221:end-100))
+plot(vecIter,vecTP1)
+xlabel('tempo [min]')
+ylabel('Temperatura [ºC]')
+axis([122 400.9833 63 72]) 
 subplot(2,1,2)
-plot(vecIR(20221:end-100))
+plot(vecIter,vecIR)
+axis([122 400.9833 0.175  0.350]) 
+xlabel('tempo [min]')
+ylabel('Corrente [A]')
 
 %tp15: dissipador (nao usado)
 
 
 %% normalizacao dos dados 
 
-%u = 0.100 mA --> 0.144 mA
-%u = vecIR(init(2)-1:init(3)-1); %inicio e fim do intervalo
-%uN13 = u - degraus(1);
-
-%u = 0.144 mA --> 0.188 mA
-%u = vecIR(init(3)-1:init(4)-1); %inicio e fim do intervalo
-%uN = u - degraus(2);
-
-%u = 0.188 mA --> 0.232 mA
-%u = vecIR(init(4)-1:init(5)-1); %inicio e fim do intervalo
-%uN3 = u - degraus(3);
-
-%u = 0.232 mA --> 0.276 mA
-%u = vecIR(init(5)-1:init(6)-1); %inicio e fim do intervalo
-%uNx = u - degraus(4);
-
 %u = 0.276 mA --> 0.320 mA
-u = vecIR(init(4)-1:end-1); %inicio e fim do intervalo
+u = vecIR(init(4):end-15); %inicio e fim do intervalo
 uNx = u - degraus(3);
 
-
-%% y1 = 67.3691 --> 67.9381
 t_rp = showRegPerm(init(1:end), vecTP1,vecIter, vecIR, 'TP1')
-y   = vecTP1(init(4)-1:end-1); 
-yN  = y - t_rp(3);
+y   = vecTP1(init(4):end-15); 
+yNx  = y - t_rp(3);
 
-%% y3 = 67.4160 -->  67.9705
-t_rp = showRegPerm(init(1:end), vecTP3,vecIter, vecIR, 'TP3')
-y   = vecTP3(init(6)-1:end-1);  %inicio e fim do intervalo
-yN3  = y - t_rp(5);
+%% 
+subplot(2,1,1)
+plot(y)
+axis([0 length(y) 69.8603 71.26])
+subplot(2,1,2)
+plot(u)
 
-%% y5 = 66.4021 -->  66.8479
-t_rp = showRegPerm(init(1:end), vecTP5,vecIter, vecIR, 'TP5')
-y   = vecTP5(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN5  = y - t_rp(2);
+%% Plantas
 
-%% y6 = 66.3006 -->  66.7448
-t_rp = showRegPerm(init(1:end), vecTP6,vecIter, vecIR, 'TP6')
-y   = vecTP6(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN6  = y - t_rp(2);
+%tp1
+tftp1 = tf([0 0.01762/0.000461],[1/0.000461 1]);
+%tp2
+tftp2 = tf([0  0.01769/0.0004653],[1/0.0004653 1]);
+%tp3
+tftp3 = tf([0 0.00673/0.0003367],[1/0.0003367 1]);
+%tp5
+tftp5 = tf([0  0.01685/0.0006178],[1/0.0006178 1]);
+%tp6
+tftp6 = tf([0 0.02061/0.0007127],[1/0.0007127 1]);
+%tp8
+tftp8 = tf([0 0.02314/0.0008649],[1/0.0008649 1]);
+%tp10
+tftp10 = tf([0 0.02246/0.0008715],[1/0.0008715 1]);
+%tp12
+tftp12 = tf([0 0.03921/0.001135],[1/0.001135 1]);
+%tp13
+tftp13 = tf([0 0.03762/0.001091],[1/0.001091 1]);
 
-%% y8 =  74.1812 -->  74.7262 
-t_rp = showRegPerm(init(1:end), vecTP8,vecIter, vecIR, 'TP8')
-y   = vecTP8(init(3)-1:init(4)-1);  %inicio e fim do intervalo
-yN8  = y - t_rp(2);
 
-%% y10 =   75.2003 -->   75.6470
-t_rp = showRegPerm(init(1:end), vecTP10, vecIter, vecIR, 'TP10')
-y   = vecTP10(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN10  = y - t_rp(1);
+step(tftp1)
+hold on
+step(tftp2)
+hold on
+step(tftp3)
+hold on
+step(tftp5)
+hold on
+step(tftp6)
+hold on
+step(tftp8)
+hold on
+step(tftp10)
+hold on
+step(tftp12)
+hold on
+step(tftp13)
+hold on
+legend('TP1','TP2', 'TP3', 'TP5','TP6','TP8','TP10','TP12','TP13')
 
-%% y12 = 67.8491 -->  68.4542
-t_rp = showRegPerm(init(1:end), vecTP12, vecIter, vecIR, 'TP12')
-y   = vecTP12(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN12  = y - t_rp(1);
 
-%% y13 =   69.1950 -->   69.7799  
-t_rp = showRegPerm(init(1:end), vecTP13, vecIter, vecIR, 'TP13')
-y   = vecTP13(init(2)-1:init(3)-1);  %inicio e fim do intervalo
-yN13n  = y - t_rp(1);
 
-%% colocando em minutos
-% x = (init(3)-1:init(4)-1);
-% xN = x - x(2);
+%% Modelo estimado pelo System Identification a partir dos dados normalizados
 
-%x = (init(2)-1:init(3)-1);
-%xN10 = x - x(1);
+planta = tftp1;
 
-%x = (init(5)-1:init(6)-1);
-%xN12 = x - x(4);
+%% Gerando graficos 
+sim('simu_MA_lev')
 
-%%
+x = [];
 
-%nao normalizado (começa do ponto de operacao 2.5V)
+for i=1:length(y) 
+   x(end+1) = i/60; 
+end
+
+screenSize = get(0,'screensize'); % gets screen size
+monWidth = screenSize(3);
+monHeight = screenSize(4);
+offHeight = 0; % assumed height of system task bar
+monHeight = monHeight - offHeight; % usable screen height
+% establishing a 2x3 grid on the screen
+figHeight = monHeight/2;
+figWidth = monWidth/3;
+
+%Resposta em malha aberta
 figure
 set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-set(gcf,'name','Dados não normalizados')
-subplot(2,1,1)
-plot(x,y)
+set(gcf,'name','comparacao Resposta MA')
+plot(x,out.pvMA(:,2), 'r')
 hold on
-xlabel('tempo [min]')
+plot(x,y, '-b')
+xlabel('Tempo [min]')
 ylabel('Temperatura [ºC]')
-hold on
-subplot(2,1,2)
-plot(x,u)
-xlabel('tempo [min]')
-ylabel('Corrente [A]')
-
-% normalizado --> ponto de operação deslocado para a origem
-figure
-set(gcf,'OuterPosition',[1 offHeight figWidth figHeight]);
-set(gcf,'name','Dados normalizados')
-subplot(2,1,1)
-plot(xN,yN)
-xlabel('tempo [min]')
-ylabel('Temperatura [ºC]')
-hold on
-subplot(2,1,2)
-plot(xN,uN)
-xlabel('tempo [min]')
-ylabel('Corrente [A]')
+legend('Modelo Estimado', 'Dados Medidos')
 
 
 %% Plantas
 
-%% tp1
-tftp1 = tf([0 0.01759/0.0004591],[1/0.0004591 1]);
-%% 
+% tp1
+tftp1 = tf([0 0.01759/0.0004591],[1/0.0004591 1]); 
 %tp3
 tftp3 = tf([0 0.007539],[1 0.0001564]);
 %tp5

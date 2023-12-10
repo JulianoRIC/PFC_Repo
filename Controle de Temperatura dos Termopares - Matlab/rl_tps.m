@@ -7,11 +7,11 @@ clc
 %contem projeto do filtro, Bodes, DPZs.
 
 %% Parametros da planta
-Ke =   64.55;     %ganho estatico da planta
-tau =  3077;    %constante de tempo da equação linearizada perto do ponto de equilibrio
+Ke =   38.22;     %ganho estatico da planta
+tau =  2169;    %constante de tempo da equação linearizada perto do ponto de equilibrio
 
 %% Especificacoes MF
-t_5  = tau/3;   %tempo de 5%
+t_5  = tau/2;   %tempo de 5%
 pico = 0.05;  %sobressinal 10% sempre em valor ABSOLUTO
 
 syms zeta wn
@@ -74,10 +74,10 @@ P = Ke/(1+s*tau);
  [num_C,den_C] = tfdata(C);
 
 
- Kp  = 0.26336
- Ti = Kp/(Kp*0.003251)
+ %Kp  = 0.26336
+ %Ti = Kp/(Kp*0.003251)
 
- C2 = (Kp*s + (Kp/Ti))/s;
+ %C2 = (Kp*s + (Kp/Ti))/s;
 %% 
 %funcao de transferencia de malha fechada de Y/R
 Hr =  minreal((C*P)/(1 + (C*P)));
