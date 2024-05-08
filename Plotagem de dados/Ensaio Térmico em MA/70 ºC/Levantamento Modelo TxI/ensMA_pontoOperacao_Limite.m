@@ -67,18 +67,32 @@ framelen = 541;
 % hold on 
 % plot(vecTP1, 'y','linewidth',1)
 
-vecTP1  = sgolayfilt(C(:,2),order,framelen);   %temperatura do termopar do capacitor C011
-vecTP2  = sgolayfilt(C(:,3),order,framelen);   %temperatura do termopar do capacitor C009 (nao usar)
-vecTP3  = sgolayfilt(C(:,4),order,framelen);   %temperatura do termopar do choke L001
-vecTP5  = sgolayfilt(C(:,5),order,framelen);   %temperatura do termopar do capacitor  C006
-vecTP6  = sgolayfilt(C(:,6),order,framelen);   %temperatura do termopar do fusível F002
-vecTP7  = sgolayfilt(C(:,7),order,framelen);   %temperatura do termopar do conector CN204
-vecTP8  = sgolayfilt(C(:,8),order,framelen);   %temperatura do termopar do CI SMPS IC100
-vecTP10 = sgolayfilt(C(:,9),order,framelen);   %temperatura do termopar do indutor L100
-vecTP11 = sgolayfilt(C(:,10),order,framelen);  %temperatura do termopar do capacitor C112
-vecTP12 = sgolayfilt(C(:,11),order,framelen);  %temperatura do termopar do capacitor C504
-vecTP13 = sgolayfilt(C(:,12),order,framelen);  %temperatura do termopar do microcontrolador IC601
-vecTP15 = sgolayfilt(C(:,13),order,framelen);  %temperatura do dissipador
+% vecTP1  = sgolayfilt(C(:,2),order,framelen);   %temperatura do termopar do capacitor C011
+% vecTP2  = sgolayfilt(C(:,3),order,framelen);   %temperatura do termopar do capacitor C009 (nao usar)
+% vecTP3  = sgolayfilt(C(:,4),order,framelen);   %temperatura do termopar do choke L001
+% vecTP5  = sgolayfilt(C(:,5),order,framelen);   %temperatura do termopar do capacitor  C006
+% vecTP6  = sgolayfilt(C(:,6),order,framelen);   %temperatura do termopar do fusível F002
+% vecTP7  = sgolayfilt(C(:,7),order,framelen);   %temperatura do termopar do conector CN204
+% vecTP8  = sgolayfilt(C(:,8),order,framelen);   %temperatura do termopar do CI SMPS IC100
+% vecTP10 = sgolayfilt(C(:,9),order,framelen);   %temperatura do termopar do indutor L100
+% vecTP11 = sgolayfilt(C(:,10),order,framelen);  %temperatura do termopar do capacitor C112
+% vecTP12 = sgolayfilt(C(:,11),order,framelen);  %temperatura do termopar do capacitor C504
+% vecTP13 = sgolayfilt(C(:,12),order,framelen);  %temperatura do termopar do microcontrolador IC601
+% vecTP15 = sgolayfilt(C(:,13),order,framelen);  %temperatura do dissipador
+
+
+vecTP1  = C(:,2);   %temperatura do termopar do capacitor C011
+vecTP2  = C(:,3);   %temperatura do termopar do capacitor C009 (nao usar)
+vecTP3  = C(:,4);   %temperatura do termopar do choke L001
+vecTP5  = C(:,5);   %temperatura do termopar do capacitor  C006
+vecTP6  = C(:,6);   %temperatura do termopar do fusível F002
+vecTP7  = C(:,7);   %temperatura do termopar do conector CN204
+vecTP8  = C(:,8);   %temperatura do termopar do CI SMPS IC100
+vecTP10 = C(:,9);   %temperatura do termopar do indutor L100
+vecTP11 = C(:,10);  %temperatura do termopar do capacitor C112
+vecTP12 = C(:,11);  %temperatura do termopar do capacitor C504
+vecTP13 = C(:,12);  %temperatura do termopar do microcontrolador IC601
+vecTP15 = C(:,13);  %temperatura do dissipador
 
 minutos = [];
 
@@ -167,7 +181,9 @@ set(gcf,'name','Valores de temperatura')
 grid on
 hold on
 
+%subplot(2,1,1)
 plot(vecIter,vecTP1)
+hold on
 plot(vecIter,vecTP2)
 plot(vecIter,vecTP3)
 plot(vecIter,vecTP5)
@@ -180,11 +196,11 @@ plot(vecIter,vecTP12)
 plot(vecIter,vecTP13)
 plot(vecIter,vecTP15)
 hold off
-
 axis([0 nSam/60 50 80])
 legend('TP1','TP2','TP3','TP5','TP6','TP7','TP8','TP10','TP11','TP12','TP13','TP15');
 xlabel('tempo [min]')
 ylabel('Temperatura [ºC]')
+
 
 %% pesquisando os intervalos
 

@@ -147,6 +147,7 @@ xlabel('tempo [min]')
 ylabel('PT [W]')
 subplot(3,1,3)
 hold on
+%%
 plot(vecIter,vecVel)
 hold off
 axis([0 nSam2/60 0 4050])
